@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Воздух Бишкека</title>
+<meta name="description" content="Качество воздуха в Бишкеке: индекс, график за 24 часа, карта районов и AI-помощник.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand__dot" id="brandDot" aria-hidden="true"></span>
+    <span class="brand__name">Воздух Бишкека</span>
+  </div>
+  <div class="chips">
+    <span class="chip">Данные: Open-Meteo (модель)</span>
+    <label class="chip chip--select">Профиль:
+      <select id="profileSelect" class="profile-select" aria-label="Профиль пользователя">
+        <option value="general">Обычный</option>
+        <option value="child">Ребёнок</option>
+        <option value="asthma">Астма</option>
+        <option value="sport">Спорт</option>
+      </select>
+    </label>
+    <span class="chip chip--status" id="updated" role="status">Загружаем…</span>
+  </div>
+</header>
+
+<main class="layout">
+
+  <div class="main-col">
+
+    <section class="top-cards" aria-label="Сводка по городу">
+      <article class="card index-card">
+        <span class="eyebrow">Индекс воздуха · сейчас</span>
+        <span class="index-card__value" id="aqiValue">—</span>
+        <span class="index-card__label" id="aqiLabel">Загружаем данные…</span>
+        <span class="index-card__text" id="aqiText"></span>
+        <span class="index-card__meta" id="aqiMeta"></span>
+        <p class="index-card__you" id="aqiYou"></p>
+      </article>
+
+      <article class="card chart-card">
+        <div class="card__row">
+          <span class="eyebrow">За 24 часа</span>
+          <span class="muted-small">US AQI по часам</span>
+        </div>
+        <div class="chart" id="chart" role="img" aria-label="График индекса воздуха за 24 часа"></div>
+        <div class="chart-axis"><span>−24 ч</span><span>сейчас</span></div>
+        <p class="best" id="bestTime"></p>
+      </article>
+
+      <article class="card weather-card" aria-label="Погода в Бишкеке">
+        <span class="eyebrow">Погода · сейчас</span>
+        <div class="weather__main">
+          <span class="weather__icon" id="wIcon" aria-hidden="true"></span>
+          <span class="weather__temp" id="wTemp">—</span>
+        </div>
+        <span class="weather__desc" id="wDesc">Загружаем…</span>
+        <dl class="weather__grid">
+          <div><dt>Ощущается</dt><dd id="wFeels">—</dd></div>
+          <div><dt>Ветер</dt><dd id="wWind">—</dd></div>
+          <div><dt>Влажность</dt><dd id="wHum">—</dd></div>
+          <div><dt>Сегодня</dt><dd id="wRange">—</dd></div>
+        </dl>
+      </article>
+    </section>
+
+    <section class="card map-card" aria-labelledby="mapTitle">
+      <div class="card__row">
+        <h1 class="card__title" id="mapTitle">Карта районов</h1>
+        <a class="btn-link" href="https://www.iqair.com/kyrgyzstan/bishkek" target="_blank" rel="noopener noreferrer">Датчики IQAir ↗</a>
+      </div>
+
+      <div class="map" id="map" role="region" aria-label="Интерактивная карта Бишкека с загрязнением по районам"></div>
+
+      <div class="scale" aria-label="Шкала цвета районов">
+        <span>Чисто · 0</span>
+        <div class="scale__bar" aria-hidden="true"></div>
+        <span>150+ · Загрязнено</span>
+      </div>
+      <p class="muted-small" id="mapNote">Цвет района — оценка по ближайшим точкам измерения: от белого к красному. Датчиков в городе пока мало, поэтому это прототип.</p>
+    </section>
+
+  </div>
+
+  <aside class="card chat" aria-labelledby="chatTitle">
+    <div class="chat__head">
+      <span class="badge">AI</span>
+      <h2 class="chat__title" id="chatTitle">Помощник по воздуху</h2>
+    </div>
+
+    <div class="chat__log" id="chatLog" aria-live="polite">
+      <div class="msg msg--bot">Привет! Спросите, где сейчас чище воздух или стоит ли выходить на пробежку.</div>
+    </div>
+
+    <div class="suggest">
+      <button type="button" class="suggest__btn" data-q="Где чище всего?">Где чище всего?</button>
+      <button type="button" class="suggest__btn" data-q="Нужна ли маска?">Нужна ли маска?</button>
+    </div>
+
+    <form class="chat__form" id="chatForm" autocomplete="off">
+      <input class="chat__input" id="chatInput" type="text" aria-label="Сообщение для AI" placeholder="Напишите вопрос…">
+      <button class="chat__send" type="submit" aria-label="Отправить">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
+  </aside>
+
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/osmtogeojson@3.0.0-beta.5/osmtogeojson.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

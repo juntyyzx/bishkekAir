@@ -1,0 +1,394 @@
+:root {
+  --bg: #0F1412;
+  --card: #161D1A;
+  --line: #222B27;
+  --line-2: #2B3631;
+  --text: #E6EDE8;
+  --muted: #9FAEA6;
+  --accent: #F59E42;
+  --accent-ink: #1E1200;
+  --radius: 16px;
+  --font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-head: 'Space Grotesk', 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.4;
+}
+
+/* ---------- Верхняя панель ---------- */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
+.brand__name { font-family: var(--font-head); font-size: 19px; font-weight: 700; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-size: 13px;
+  color: var(--muted);
+  padding: 6px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+}
+.chip--status { color: var(--text); }
+
+/* ---------- Раскладка ---------- */
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: stretch;
+  padding: 28px 32px 32px;
+}
+
+.main-col {
+  flex: 999 1 640px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.muted-small { font-size: 12px; color: var(--muted); margin: 0; }
+
+.card__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.card__title {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* ---------- Верхние карточки ---------- */
+.top-cards { display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch; }
+
+.index-card {
+  flex: 1 1 320px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.index-card__value {
+  font-family: var(--font-head);
+  font-size: clamp(72px, 9vw, 112px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -4px;
+  color: var(--muted);
+}
+
+.index-card__label { font-size: 17px; font-weight: 600; }
+.index-card__text { font-size: 14px; color: var(--muted); line-height: 1.5; }
+.index-card__meta { font-size: 13px; color: var(--muted); }
+
+.chart-card {
+  flex: 1 1 320px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 150px;
+  flex: 1;
+}
+
+.chart__bar {
+  flex: 1;
+  min-width: 0;
+  min-height: 4px;
+  border-radius: 3px;
+  background: var(--line-2);
+}
+
+.chart-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------- Карта ---------- */
+.map-card {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.btn-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+}
+.btn-link:hover { border-color: var(--accent); color: var(--accent); }
+.btn-link:focus-visible,
+.suggest__btn:focus-visible,
+.chat__send:focus-visible,
+.chat__input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.map {
+  width: 100%;
+  height: clamp(380px, 56vh, 540px);
+  border-radius: 12px;
+  background: #121A17;
+  position: relative;
+  z-index: 0;
+}
+.leaflet-container { font-family: var(--font-body); }
+.map--dark-filter .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9); }
+
+.pt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--text);
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.leaflet-tooltip {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  box-shadow: none;
+  font-size: 13px;
+}
+
+.scale {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.scale__bar {
+  flex: 1;
+  max-width: 320px;
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(to right, #FFFFFF, #E53935);
+  border: 1px solid var(--line-2);
+}
+
+
+/* ---------- Чат ---------- */
+.chat {
+  flex: 1 1 340px;
+  min-width: 0;
+  align-self: flex-start;
+  position: sticky;
+  top: 20px;
+  height: 640px;
+  max-height: calc(100vh - 40px);
+  min-height: 460px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chat__head { display: flex; align-items: center; gap: 10px; }
+.chat__title { margin: 0; font-family: var(--font-head); font-size: 17px; font-weight: 600; }
+
+.badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bg);
+  background: var(--accent);
+  border-radius: 6px;
+  padding: 5px 8px;
+}
+
+.chat__log {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.msg {
+  max-width: 88%;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 10px 14px;
+  white-space: pre-line;
+}
+.msg--bot { align-self: flex-start; background: var(--line); border-radius: 14px 14px 14px 4px; }
+.msg--user { align-self: flex-end; background: var(--accent); color: var(--accent-ink); border-radius: 14px 14px 4px 14px; }
+
+.suggest { display: flex; flex-wrap: wrap; gap: 8px; }
+.suggest__btn {
+  font: inherit;
+  font-size: 13px;
+  color: #C9D5CE;
+  background: transparent;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  min-height: 36px;
+  cursor: pointer;
+}
+.suggest__btn:hover { border-color: var(--accent); }
+
+.chat__form { display: flex; gap: 8px; align-items: center; }
+.chat__input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  background: var(--bg);
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  padding: 0 14px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--text);
+}
+.chat__send {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.chip--select { display: flex; align-items: center; gap: 8px; padding: 3px 4px 3px 12px; }
+.profile-select {
+  font: inherit;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  min-height: 32px;
+  padding: 0 8px;
+}
+.profile-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.index-card__you {
+  margin: 6px 0 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #1E2723;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.best { margin: 0; font-size: 13px; font-weight: 600; line-height: 1.4; }
+
+.msg--typing { opacity: 0.7; }
+.chat__send:disabled, .chat__input:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ---------- Погода ---------- */
+.weather-card {
+  flex: 1 1 240px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.weather__main { display: flex; align-items: center; gap: 14px; color: var(--text); }
+.weather__icon { width: 48px; height: 48px; flex: none; color: var(--accent); }
+.weather__icon svg { width: 100%; height: 100%; display: block; }
+.weather__temp {
+  font-family: var(--font-head);
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+.weather__desc { font-size: 17px; font-weight: 600; }
+.weather__grid {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+}
+.weather__grid dt { font-size: 12px; color: var(--muted); }
+.weather__grid dd { margin: 2px 0 0; font-size: 15px; font-weight: 600; }
+
+/* ---------- Телефон ---------- */
+html { -webkit-text-size-adjust: 100%; }
+body { overflow-x: hidden; }
+
+@media (max-width: 640px) {
+  .topbar { padding: 14px 16px; }
+  .layout { padding: 16px; gap: 16px; }
+  .main-col, .top-cards { gap: 16px; }
+  .index-card, .chart-card, .weather-card { padding: 20px; }
+  .index-card__value { letter-spacing: -3px; }
+  .map-card { padding: 14px; }
+  .map { height: 360px; }
+  .scale { flex-wrap: wrap; gap: 6px 12px; }
+  .scale__bar { flex-basis: 100%; order: 3; max-width: none; }
+  .chat {
+    position: static;
+    align-self: stretch;
+    height: 560px;
+    max-height: none;
+    padding: 16px;
+  }
+  .msg { max-width: 92%; }
+}
